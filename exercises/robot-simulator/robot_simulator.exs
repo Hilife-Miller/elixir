@@ -4,8 +4,13 @@ defmodule RobotSimulator do
 
   Valid directions are: `:north`, `:east`, `:south`, `:west`
   """
-  @spec create(direction :: atom, position :: {integer, integer}) :: any
   def create(direction \\ nil, position \\ nil) do
+  end
+
+  @doc """
+  Move ahead A left L or right R
+  """
+  def move(robot, movement) do
   end
 
   @doc """
@@ -13,23 +18,20 @@ defmodule RobotSimulator do
 
   Valid instructions are: "R" (turn right), "L", (turn left), and "A" (advance)
   """
-  @spec simulate(robot :: any, instructions :: String.t()) :: any
   def simulate(robot, instructions) do
   end
-
+    
   @doc """
   Return the robot's direction.
 
   Valid directions are: `:north`, `:east`, `:south`, `:west`
   """
-  @spec direction(robot :: any) :: atom
   def direction(robot) do
   end
 
   @doc """
   Return the robot's position.
   """
-  @spec position(robot :: any) :: {integer, integer}
   def position(robot) do
   end
 end
