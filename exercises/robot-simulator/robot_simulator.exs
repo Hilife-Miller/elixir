@@ -12,7 +12,8 @@ defmodule RobotSimulator do
   @doc """
   Move ahead A left L or right R
   """
-  def move(robot, movement) do
+  def move(%RobotSimulator{direction: :north}=robot, "R") do
+    %RobotSimulator{ robot | direction: :east }
   end
 
   @doc """

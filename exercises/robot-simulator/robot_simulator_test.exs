@@ -14,7 +14,6 @@ defmodule RobotSimulatorTest do
     assert RobotSimulator.direction(robot) == :north
   end
 
-  @tag :pending
   test "create works with valid arguments" do
     robot = RobotSimulator.create(:north, {0, 0})
     assert RobotSimulator.position(robot) == {0, 0}
@@ -33,12 +32,12 @@ defmodule RobotSimulatorTest do
     assert RobotSimulator.direction(robot) == :west
   end
   
-  @tag :pending
   test "moving right from :north" do
-    robot = RobotSimulator.create(:north, {0, 0})
+    robot = RobotSimulator.create()
     |> RobotSimulator.move("R")
     
-    assert RobotSimulator.position == :east
+    assert RobotSimulator.direction(robot) == :east
+    assert RobotSimulator.position(robot) == {0, 0}
   end
 
   @tag :pending
@@ -46,7 +45,7 @@ defmodule RobotSimulatorTest do
     robot = RobotSimulator.create(:east, {0, 0})
     |> RobotSimulator.move("R")
 
-    assert RobotSimulator.position == :south
+    assert RobotSimulator.direction(robot) == :south
   end
 
   @tag :pending
@@ -54,7 +53,7 @@ defmodule RobotSimulatorTest do
     robot = RobotSimulator.create(:south, {0, 0})
     |> RobotSimulator.move("R")
     
-    assert RobotSimulator.position == :west
+    assert RobotSimulator.direction(robot) == :west
   end
 
   @tag :pending
@@ -62,7 +61,7 @@ defmodule RobotSimulatorTest do
     robot = RobotSimulator.create(:west, {0, 0})
     |> RobotSimulator.move("R")
     
-    assert RobotSimulator.position == :north
+    assert RobotSimulator.direction(robot) == :north
   end
 
   @tag :pending
@@ -70,7 +69,7 @@ defmodule RobotSimulatorTest do
     robot = RobotSimulator.create(:north, {0, 0})
     |> RobotSimulator.move("L")
     
-    assert RobotSimulator.position == :west
+    assert RobotSimulator.direction(robot) == :west
   end
 
   @tag :pending
@@ -78,7 +77,7 @@ defmodule RobotSimulatorTest do
     robot = RobotSimulator.create(:east, {0, 0})
     |> RobotSimulator.move("L")
     
-    assert RobotSimulator.position == :north
+    assert RobotSimulator.direction(robot) == :north
   end
 
   @tag :pending
@@ -86,7 +85,7 @@ defmodule RobotSimulatorTest do
     robot = RobotSimulator.create(:south, {0, 0})
     |> RobotSimulator.move("L")
 
-    assert RobotSimulator.position == :east
+    assert RobotSimulator.direction(robot) == :east
     
   end
 
@@ -95,7 +94,7 @@ defmodule RobotSimulatorTest do
     robot = RobotSimulator.create(:west, {0, 0})
     |> RobotSimulator.move("L")
     
-    assert RobotSimulator.position == :south
+    assert RobotSimulator.direction(robot) == :south
   end
 
   @tag :pending
