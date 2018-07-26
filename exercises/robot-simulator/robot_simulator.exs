@@ -1,13 +1,49 @@
 defmodule RobotSimulator do
-  defstruct direction: nil, position: nil  
+  defstruct direction: nil, position: nil
+
   @doc """
   Create a Robot Simulator given an initial direction and position.
 
   Valid directions are: `:north`, `:east`, `:south`, `:west`
   """
-  def create(direction \\ :north, position \\ {0, 0}) do
-    %RobotSimulator{ direction: direction, position: position }
+  def create() do
+    create(nil,nil)
   end
+  def create({_, _}=position) do
+    create(nil, position)
+  end
+  def create(direction)  when direction in [:north, :south, :east, :west, :nil] do
+    create(direction, nil)
+  end
+  def create(direction, nil) do
+    create(direction, {0, 0})
+  end
+  def create(direction, {x, y}=position)
+      when direction in [:north, :south, :east, :west, :nil] and
+           is_integer(x) and
+           is_integer(y) do
+    %RobotSimulator{ direction: direction || :north , position: position }
+  end
+  def create(direction, position) when direction in [:north, :south, :east, :west] do
+    {:error, "invalid position"}
+  end
+  def create(direction, position) do
+    {:error, "invalid direction"}
+  end
+
+#  def validinput() do
+#  end
+#  def directioncheck(direction) when direction in [:north, :south, :east, :west] do
+#    direction
+#  end
+#  def directioncheck(direction) do
+#    :error
+#  end
+#  def positioncheck() do
+#
+#  end
+
+
 
   @doc """
   Move ahead A left L or right R
@@ -18,15 +54,31 @@ defmodule RobotSimulator do
   def move(%RobotSimulator{direction: :east}=robot, "R") do
     %RobotSimulator{ robot | direction: :south }
   end
-
   def move(%RobotSimulator{direction: :south}=robot, "R") do
     %RobotSimulator{ robot | direction: :west }
   end
-  
   def move(%RobotSimulator{direction: :west}=robot, "R") do
     %RobotSimulator{ robot | direction: :north }
   end
-  
+  def move(%RobotSimulator{direction: :north}=robot, "L") do
+    %RobotSimulator{ robot | direction: :west }
+  end
+  def move(%RobotSimulator{direction: :east}=robot, "L") do
+    %RobotSimulator{ robot | direction: :north }
+  end
+  def move(%RobotSimulator{direction: :south}=robot, "L") do
+    %RobotSimulator{ robot | direction: :east }
+  end
+  def move(%RobotSimulator{direction: :west}=robot, "L") do
+    %RobotSimulator{ robot | direction: :south }
+  end
+
+
+
+  def move(%RobotSimulator{direction: :west}=robot, "A") do
+    %RobotSimulator{ robot | direction: :south }
+  end
+
   @doc """
   Simulate the robot's movement given a string of instructions.
 
@@ -34,7 +86,7 @@ defmodule RobotSimulator do
   """
   def simulate(robot, instructions) do
   end
-    
+
   @doc """
   Return the robot's direction.
 

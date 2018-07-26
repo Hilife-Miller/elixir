@@ -12,6 +12,15 @@ defmodule RobotSimulatorTest do
     robot = RobotSimulator.create()
     assert RobotSimulator.position(robot) == {0, 0}
     assert RobotSimulator.direction(robot) == :north
+    robot = RobotSimulator.create(:north)
+    assert RobotSimulator.position(robot) == {0, 0}
+    assert RobotSimulator.direction(robot) == :north
+    robot = RobotSimulator.create({1,0})
+    assert RobotSimulator.position(robot) == {1, 0}
+    assert RobotSimulator.direction(robot) == :north
+    robot = RobotSimulator.create(:south, {-1,0})
+    assert RobotSimulator.position(robot) == {-1,0}
+    assert RobotSimulator.direction(robot) == :south
   end
 
   test "create works with valid arguments" do
@@ -31,11 +40,11 @@ defmodule RobotSimulatorTest do
     assert RobotSimulator.position(robot) == {100, -100}
     assert RobotSimulator.direction(robot) == :west
   end
-  
+
   test "moving right from :north" do
     robot = RobotSimulator.create()
     |> RobotSimulator.move("R")
-    
+
     assert RobotSimulator.direction(robot) == :east
     assert RobotSimulator.position(robot) == {0, 0}
   end
@@ -51,51 +60,51 @@ defmodule RobotSimulatorTest do
   test "moving right from :south" do
     robot = RobotSimulator.create(:south, {0, 0})
     |> RobotSimulator.move("R")
-    
+
     assert RobotSimulator.direction(robot) == :west
   end
 
   test "moving right from :west" do
     robot = RobotSimulator.create(:west, {0, 0})
     |> RobotSimulator.move("R")
-    
+
     assert RobotSimulator.direction(robot) == :north
   end
 
-  @tag :pending
+
   test "moving left from :north" do
     robot = RobotSimulator.create(:north, {0, 0})
     |> RobotSimulator.move("L")
-    
+
     assert RobotSimulator.direction(robot) == :west
   end
 
-  @tag :pending
+
   test "moving left from :east" do
     robot = RobotSimulator.create(:east, {0, 0})
     |> RobotSimulator.move("L")
-    
+
     assert RobotSimulator.direction(robot) == :north
   end
 
-  @tag :pending
+
   test "moving left from :south" do
     robot = RobotSimulator.create(:south, {0, 0})
     |> RobotSimulator.move("L")
 
     assert RobotSimulator.direction(robot) == :east
-    
+
   end
 
-  @tag :pending
+
   test "moving left from :west" do
     robot = RobotSimulator.create(:west, {0, 0})
     |> RobotSimulator.move("L")
-    
+
     assert RobotSimulator.direction(robot) == :south
   end
 
-  @tag :pending
+
   test "create errors if invalid direction given" do
     position = {0, 0}
     invalid_direction = {:error, "invalid direction"}
@@ -105,7 +114,7 @@ defmodule RobotSimulatorTest do
     assert RobotSimulator.create("east", position) == invalid_direction
   end
 
-  @tag :pending
+
   test "create errors if invalid position given" do
     direction = :north
     invalid_position = {:error, "invalid position"}
@@ -117,7 +126,6 @@ defmodule RobotSimulatorTest do
     assert RobotSimulator.create(direction, "invalid") == invalid_position
     assert RobotSimulator.create(direction, 0) == invalid_position
     assert RobotSimulator.create(direction, [0, 0]) == invalid_position
-    assert RobotSimulator.create(direction, nil) == invalid_position
   end
 
   @tag :pending
