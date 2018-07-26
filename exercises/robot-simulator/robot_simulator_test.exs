@@ -96,13 +96,42 @@ defmodule RobotSimulatorTest do
 
   end
 
-
   test "moving left from :west" do
     robot = RobotSimulator.create(:west, {0, 0})
     |> RobotSimulator.move("L")
 
     assert RobotSimulator.direction(robot) == :south
   end
+
+
+  test "advancing from :north" do
+    robot = RobotSimulator.create(:north, {0,0})
+    |> RobotSimulator.move("A")
+
+    assert robot.position == {0,1}
+  end
+
+  test "advancing from :west" do
+    robot = RobotSimulator.create(:west)
+    |> RobotSimulator.move("A")
+
+    assert robot.position == {-1,0}
+  end
+
+  test "advancing from :south" do
+    robot = RobotSimulator.create(:south, {0,0})
+    |> RobotSimulator.move("A")
+
+    assert robot.position == {0,-1}
+  end
+
+  test "advancing from :east" do
+    robot = RobotSimulator.create(:east)
+    |> RobotSimulator.move("A")
+
+    assert robot.position == {1,0}
+  end
+
 
 
   test "create errors if invalid direction given" do

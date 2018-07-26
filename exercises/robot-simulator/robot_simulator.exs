@@ -60,6 +60,8 @@ defmodule RobotSimulator do
   def move(%RobotSimulator{direction: :west}=robot, "R") do
     %RobotSimulator{ robot | direction: :north }
   end
+
+
   def move(%RobotSimulator{direction: :north}=robot, "L") do
     %RobotSimulator{ robot | direction: :west }
   end
@@ -74,10 +76,19 @@ defmodule RobotSimulator do
   end
 
 
-
-  def move(%RobotSimulator{direction: :west}=robot, "A") do
-    %RobotSimulator{ robot | direction: :south }
+  def move(%RobotSimulator{direction: :north, position: {x, y}}=robot, "A") do
+    %RobotSimulator{ robot | position: {x,y+1} }
   end
+  def move(%RobotSimulator{direction: :south, position: {x, y}}=robot, "A") do
+    %RobotSimulator{ robot | position: {x,y-1} }
+  end
+  def move(%RobotSimulator{direction: :east, position: {x, y}}=robot, "A") do
+    %RobotSimulator{ robot | position: {x+1,y} }
+  end
+  def move(%RobotSimulator{direction: :west, position: {x, y}}=robot, "A") do
+    %RobotSimulator{ robot | position: {x-1,y} }
+  end
+
 
   @doc """
   Simulate the robot's movement given a string of instructions.
