@@ -24,10 +24,10 @@ defmodule RobotSimulator do
            is_integer(y) do
     %RobotSimulator{ direction: direction || :north , position: position }
   end
-  def create(direction, position) when direction in [:north, :south, :east, :west] do
+  def create(direction, _position) when direction in [:north, :south, :east, :west] do
     {:error, "invalid position"}
   end
-  def create(direction, position) do
+  def create(_direction, _position) do
     {:error, "invalid direction"}
   end
 
@@ -89,13 +89,23 @@ defmodule RobotSimulator do
     %RobotSimulator{ robot | position: {x-1,y} }
   end
 
+  def move(_robot, _invalidinstruction) do
+    {:error, "invalid instruction"}
+  end
 
   @doc """
   Simulate the robot's movement given a string of instructions.
 
   Valid instructions are: "R" (turn right), "L", (turn left), and "A" (advance)
   """
+  def prepinstruction_list(instructions) do
+    String.graphemes(instructions)
+  end
+
   def simulate(robot, instructions) do
+    instructions
+    |> prepinstruction_list
+    |> Enum.reduce( robot, &move(&2, &1))
   end
 
   @doc """
